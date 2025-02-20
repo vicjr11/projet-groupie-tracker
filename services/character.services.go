@@ -113,7 +113,6 @@ func GetAllcharacter() ([]ItemCharacter, int, error) {
 		if data.Info.Next == "" {
 			break
 		}
-		fmt.Println(data)
 	}
 
 	return listCharacters, http.StatusOK, nil
