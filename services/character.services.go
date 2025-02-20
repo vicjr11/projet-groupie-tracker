@@ -62,14 +62,14 @@ func Getcharacter() (ListCharacters, int, error) {
 }
 
 type ItemCharacter struct {
-	Id       int    `json:"id"`
-	Name     string `json:"name"`
-	Status   string `json:"status"`
-	Speciess string `json:"species"`
-	Type     string `json:"type"`
-	Gender   string `json:"type"`
-	Url      string `json:"url"`
-	Image    string `json:"image"`
+	Id      int    `json:"id"`
+	Name    string `json:"name"`
+	Status  string `json:"status"`
+	Species string `json:"species"`
+	Type    string `json:"type"`
+	Gender  string `json:"type"`
+	Url     string `json:"url"`
+	Image   string `json:"image"`
 }
 
 type ResultsCharacter struct {

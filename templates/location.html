@@ -33,7 +33,6 @@
             </form>
         </section>
 
-        {{/* location.html */}}
 <section class="locations-grid">
     {{range .Results}}
     <article class="location-card fade-in">
@@ -41,6 +40,7 @@
             <h3>{{.Name}}</h3>
             <p>Type: {{if .Type}}{{.Type}}{{else}}Non spécifié{{end}}</p>
             <p>Dimension: {{if .Dimension}}{{.Dimension}}{{else}}Inconnue{{end}}</p>
+            <p>Residents: {{if .Residents}}{{.Residents}}{{else}}Inconnue{{end}}</p>
             <button class="favorite-btn card-hover" data-id="{{.Id}}">Ajouter aux favoris</button>
         </div>
     </article>
