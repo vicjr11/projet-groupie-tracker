@@ -13,6 +13,7 @@ func MainServe() {
 	CharacterRoutes()
 	EpisodeRoutes()
 	LocationRoutes()
+	FavorisRoutes()
 	fmt.Println("Serveur lancé : http://localhost:8080")
 	http.ListenAndServe("localhost:8080", nil)
 	//test

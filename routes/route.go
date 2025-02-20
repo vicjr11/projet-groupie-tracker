@@ -20,3 +20,7 @@ func EpisodeRoutes() {
 func LocationRoutes() {
 	http.HandleFunc("/location", controllers.LocationControllers) // Configure la route pour les locations
 }
+
+func FavorisRoutes() {
+	http.HandleFunc("/favoris",controllers.FavorisControllers)  // configure la route pour les favoris
+}
