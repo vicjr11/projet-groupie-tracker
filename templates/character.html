@@ -1,13 +1,58 @@
-{{define "character"}}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personnages - Rick and Morty API</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>Personnages - Rick & Morty Fan Site</title>
+    <link rel="stylesheet" href="/assets/css/characters.css">
+    <link rel="stylesheet" href="/assets/css/animation.css">
 </head>
 <body>
-    
+    <header>
+        <nav>
+            <h1>Rick & Morty</h1>
+            <ul>
+                <li><a href="home.html">Accueil</a></li>
+                <li><a href="character.html">Personnages</a></li>
+                <li><a href="episode.html">Épisodes</a></li>
+                <li><a href="location.html">Lieux</a></li>
+                <li><a href="favoris.html">Favoris</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="search">
+            <h2>Personnages</h2>
+            <form>
+                <input type="text" placeholder="Rechercher un personnage...">
+                <button type="submit">Rechercher</button>
+            </form>
+        </section>
+
+        <section class="characters-grid">
+            <article class="character-card">
+                <img src="placeholder.jpg" alt="Rick Sanchez">
+                <div class="character-info">
+                    <h3>Rick Sanchez</h3>
+                    <p>Status: Vivant</p>
+                    <p>Espèce: Humain</p>
+                    <button class="favorite-btn">Ajouter aux favoris</button>
+                </div>
+            </article>
+        </section>
+
+        <nav class="pagination">
+            <button>Précédent</button>
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button>Suivant</button>
+        </nav>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Rick & Morty Fan Site. Tous droits réservés.</p>
+    </footer>
 </body>
-{{end}}
+</html>

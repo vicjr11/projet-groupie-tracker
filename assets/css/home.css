@@ -1,44 +1,48 @@
-nav {
-    width: 100%;
-    margin-bottom: 30px;
-}
-.nav-list {
-    display: flex;
-    justify-content: center;
-    padding: 0;
-    list-style: none;
-}
-.nav-item {
-    margin: 0 15px;
-}
-.nav-link {
-    color: #dcdde1;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 1.1rem;
-    padding: 8px 15px;
-    border-radius: 5px;
-    transition: all 0.3s ease;
-}
-.nav-link:hover,
-.nav-link.active {
-    color: #44bd32;
-    background-color: rgba(68, 189, 50, 0.1);
+/* Section héro */
+.hero {
+    background: linear-gradient(135deg, #3498db, #2c3e50);
+    color: white;
+    padding: 4rem 2rem;
+    text-align: center;
+    border-radius: 10px;
+    margin-bottom: 3rem;
 }
 
-/* Card hover effect */
-.feature-card {
-    background-color: rgba(72, 84, 96, 0.6);
-    padding: 25px;
+.hero h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+/* Section caractéristiques */
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.features article {
+    background: white;
+    padding: 2rem;
     border-radius: 10px;
-    width: 220px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
 }
-.feature-card:hover {
+
+.features article:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
-.card-link {
-    text-decoration: none;
+
+.features h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.features p {
+    color: #666;
 }

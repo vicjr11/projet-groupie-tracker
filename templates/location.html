@@ -1,94 +1,58 @@
-{{define "location"}}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lieux - Rick and Morty API</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        </style>
+    <title>Lieux - Rick & Morty Fan Site</title>
+    <link rel="stylesheet" href="/assets/css/location.css">
+    <link rel="stylesheet" href="/assets/css/animation.css">
 </head>
-<body style="font-family: 'Roboto', sans-serif; margin: 0; padding: 0; background-color: #1e272e; color: #f7f1e3; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; text-align: center; line-height: 1.6;">
-    
-    <div style="max-width: 1000px; margin: 0 auto; padding: 40px 20px; background-color: rgba(47, 54, 64, 0.8); border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);">
-        
-        <header style="margin-bottom: 30px;">
-            <h1 style="font-size: 2.5rem; color: #44bd32; margin-bottom: 15px; text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);">Lieux et Dimensions</h1>
-            <p style="font-size: 1.2rem; color: #dcdde1; margin-bottom: 20px;">Découvrez les différentes dimensions visitées par Rick et Morty</p>
-            
-            <!-- Navigation -->
-            <nav>
-                <ul class="nav-list">
-                    <li class="nav-item"><a href="/home" class="nav-link">Accueil</a></li>
-                    <li class="nav-item"><a href="/character" class="nav-link">Personnages</a></li>
-                    <li class="nav-item"><a href="/location" class="nav-link active">Lieux</a></li>
-                    <li class="nav-item"><a href="/episode" class="nav-link">Épisodes</a></li>
-                </ul>
-            </nav>
-        </header>
-        
-        <main>
-            <div style="margin: 20px 0;">
-                <p style="font-size: 1.1rem; margin-bottom: 25px; max-width: 700px; margin-left: auto; margin-right: auto;">
-                    Dans l'univers de Rick et Morty, les personnages voyagent à travers d'innombrables dimensions et lieux extraordinaires. Explorez-les ci-dessous.
-                </p>
-                
-                <!-- Grille de lieux -->
-                <div class="location-grid">
-                    <!-- Exemple de carte de lieu -->
-                    <div class="location-card">
-                        <h3 class="location-name">Terre C-137</h3>
-                        <p class="location-type">Type: Planète</p>
-                        <p class="location-dimension">Dimension: Dimension C-137</p>
-                    </div>
-                    
-                    <div class="location-card">
-                        <h3 class="location-name">Citadelle des Ricks</h3>
-                        <p class="location-type">Type: Espace artificiel</p>
-                        <p class="location-dimension">Dimension: Inconnue</p>
-                    </div>
-                    
-                    <div class="location-card">
-                        <h3 class="location-name">Gazorpazorp</h3>
-                        <p class="location-type">Type: Planète</p>
-                        <p class="location-dimension">Dimension: Inconnue</p>
-                    </div>
-                    
-                    <div class="location-card">
-                        <h3 class="location-name">Blips and Chitz</h3>
-                        <p class="location-type">Type: Arcade</p>
-                        <p class="location-dimension">Dimension: Remplacée</p>
-                    </div>
-                    
-                    <div class="location-card">
-                        <h3 class="location-name">Purge Planet</h3>
-                        <p class="location-type">Type: Planète</p>
-                        <p class="location-dimension">Dimension: Inconnue</p>
-                    </div>
-                    
-                    <div class="location-card">
-                        <h3 class="location-name">Bird World</h3>
-                        <p class="location-type">Type: Planète</p>
-                        <p class="location-dimension">Dimension: Inconnue</p>
-                    </div>
-                </div>
-                
-                <!-- Pagination -->
-                <div style="margin-top: 40px;">
-                    <button style="padding: 8px 15px; background-color: #44bd32; color: white; border: none; border-radius: 5px; margin: 0 5px; cursor: pointer;">1</button>
-                    <button style="padding: 8px 15px; background-color: rgba(68, 189, 50, 0.3); color: white; border: none; border-radius: 5px; margin: 0 5px; cursor: pointer;">2</button>
-                    <button style="padding: 8px 15px; background-color: rgba(68, 189, 50, 0.3); color: white; border: none; border-radius: 5px; margin: 0 5px; cursor: pointer;">3</button>
-                    <button style="padding: 8px 15px; background-color: rgba(68, 189, 50, 0.3); color: white; border: none; border-radius: 5px; margin: 0 5px; cursor: pointer;">Suivant →</button>
-                </div>
-            </div>
-        </main>
-        
-        <footer style="margin-top: 50px; padding-top: 20px; border-top: 1px solid rgba(220, 221, 225, 0.1); font-size: 0.9rem; color: #a4b0be;">
-            <p>&copy; 2025 Rick and Morty API - Tous droits réservés</p>
-        </footer>
-    </div>
+<body>
+    <header>
+        <nav>
+            <h1>Rick & Morty</h1>
+            <ul>
+                <li><a href="home.html">Accueil</a></li>
+                <li><a href="character.html">Personnages</a></li>
+                <li><a href="episode.html">Épisodes</a></li>
+                <li><a href="location.html">Lieux</a></li>
+                <li><a href="favoris.html">Favoris</a></li>
+            </ul>
+        </nav>
+    </header>
 
+    <main>
+        <section class="search">
+            <h2>Lieux</h2>
+            <form>
+                <input type="text" placeholder="Rechercher un lieu...">
+                <button type="submit">Rechercher</button>
+            </form>
+        </section>
+
+        <section class="locations-grid">
+            <article class="location-card">
+                <img src="placeholder.jpg" alt="Citadelle des Ricks">
+                <div class="location-info">
+                    <h3>Citadelle des Ricks</h3>
+                    <p>Type: Station spatiale</p>
+                    <p>Dimension: Dimension inconnue</p>
+                    <button class="favorite-btn">Ajouter aux favoris</button>
+                </div>
+            </article>
+        </section>
+
+        <nav class="pagination">
+            <button>Précédent</button>
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button>Suivant</button>
+        </nav>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Rick & Morty Fan Site. Tous droits réservés.</p>
+    </footer>
 </body>
 </html>
-{{end}}
