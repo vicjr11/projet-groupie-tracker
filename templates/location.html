@@ -7,6 +7,8 @@
     <title>Lieux - Rick & Morty Fan Site</title>
     <link rel="stylesheet" href="/assets/css/location.css">
     <link rel="stylesheet" href="/assets/css/animation.css">
+    <link rel="stylesheet" href="/assets/css/universal.css">
+
 </head>
 <body>
     <header>
@@ -30,6 +32,20 @@
                 <button type="submit">Rechercher</button>
             </form>
         </section>
+
+        {{/* location.html */}}
+<section class="locations-grid">
+    {{range .Results}}
+    <article class="location-card fade-in">
+        <div class="location-info">
+            <h3>{{.Name}}</h3>
+            <p>Type: {{if .Type}}{{.Type}}{{else}}Non spécifié{{end}}</p>
+            <p>Dimension: {{if .Dimension}}{{.Dimension}}{{else}}Inconnue{{end}}</p>
+            <button class="favorite-btn card-hover" data-id="{{.Id}}">Ajouter aux favoris</button>
+        </div>
+    </article>
+    {{end}}
+</section>
 
         <section class="locations-grid">
             <article class="location-card">

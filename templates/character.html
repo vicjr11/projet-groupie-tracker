@@ -7,6 +7,7 @@
     <title>Personnages - Rick & Morty Fan Site</title>
     <link rel="stylesheet" href="/assets/css/characters.css">
     <link rel="stylesheet" href="/assets/css/animation.css">
+    <link rel="stylesheet" href="/assets/css/universal.css">
 </head>
 <body>
     <header>
@@ -32,22 +33,23 @@
         </section>
 
         <section class="characters-grid">
-            <article class="character-card">
-                <img src="placeholder.jpg" alt="Rick Sanchez">
+            {{range .Results}}
+            <article class="character-card fade-in">
+                <img src="{{.Image}}" alt="{{.Name}}">
                 <div class="character-info">
-                    <h3>Rick Sanchez</h3>
-                    <p>Status: Vivant</p>
-                    <p>Espèce: Humain</p>
-                    <button class="favorite-btn">Ajouter aux favoris</button>
+                    <h3>{{.Name}}</h3>
+                    <p>Espèce: {{.Species}}</p>
+                    <p>Type: {{if .Type}}{{.Type}}{{else}}Non spécifié{{end}}</p>
+                    <p>Origine: {{.Origin.Name}}</p>
+                    <p>Localisation: {{.Location.Name}}</p>
+                    <button class="favorite-btn card-hover" data-id="{{.Id}}">Ajouter aux favoris</button>
                 </div>
             </article>
+            {{end}}
         </section>
 
         <nav class="pagination">
             <button>Précédent</button>
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
             <button>Suivant</button>
         </nav>
     </main>
