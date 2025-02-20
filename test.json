@@ -1,0 +1,60 @@
+{
+    "info": {
+        "count": 826,
+        "pages": 42,
+        "next": null
+    },
+    "results": [
+        {
+            "id": 821,
+            "name": "Gotron",
+            "species": "Robot",
+            "type": "Ferret Robot",
+            "origin": {
+                "name": "Earth (Replacement Dimension)"
+            },
+            "location": {
+                "name": "Earth (Replacement Dimension)"
+            },
+            "image": "https://rickandmortyapi.com/api/character/avatar/821.jpeg",
+            "episode": [
+                "https://rickandmortyapi.com/api/episode/48"
+            ]
+        }
+    ]
+
+}
+
+{
+    "info": {
+        "count": 51,
+        "pages": 3,
+        "next": "https://rickandmortyapi.com/api/episode?page=2",
+        "prev": null
+    },
+    "results": [
+        {
+            "id": 1,
+            "name": "Pilot",
+            "air_date": "December 2, 2013",
+            "episode": "S01E01",}
+    ]
+}
+
+
+ {
+    "info": {
+        "count": 126,
+        "pages": 7,
+        "next": "https://rickandmortyapi.com/api/location?page=2",
+        "prev": null
+    },
+    "results": [
+        {
+            "id": 1,
+            "name": "Earth (C-137)",
+            "type": "Planet",
+            "dimension": "Dimension C-137",
+            "residents"
+        }]
+        }               

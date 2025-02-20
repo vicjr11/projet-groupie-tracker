@@ -1,0 +1,101 @@
+nav {
+    width: 100%;
+    margin-bottom: 30px;
+}
+.nav-list {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    list-style: none;
+}
+.nav-item {
+    margin: 0 15px;
+}
+.nav-link {
+    color: #dcdde1;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1rem;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+.nav-link:hover,
+.nav-link.active {
+    color: #44bd32;
+    background-color: rgba(68, 189, 50, 0.1);
+}
+
+/* Episode list styles */
+.episode-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 30px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.episode-card {
+    background-color: rgba(72, 84, 96, 0.6);
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.episode-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+}
+.episode-info {
+    text-align: left;
+}
+.episode-code {
+    color: #44bd32;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.episode-title {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+.episode-date {
+    color: #a4b0be;
+    font-size: 0.85rem;
+}
+.view-button {
+    padding: 8px 15px;
+    background-color: rgba(68, 189, 50, 0.7);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.view-button:hover {
+    background-color: #44bd32;
+}
+
+/* Season filters */
+.season-filters {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+.season-button {
+    padding: 6px 12px;
+    background-color: rgba(68, 189, 50, 0.2);
+    color: #dcdde1;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.season-button:hover, .season-button.active {
+    background-color: rgba(68, 189, 50, 0.8);
+    color: white;
+}

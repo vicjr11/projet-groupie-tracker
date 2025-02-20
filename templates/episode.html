@@ -1,0 +1,115 @@
+
+
+
+
+{{define "episode"}}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Épisodes - Rick and Morty API</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body style="font-family: 'Roboto', sans-serif; margin: 0; padding: 0; background-color: #1e272e; color: #f7f1e3; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; text-align: center; line-height: 1.6;">
+    
+    <div style="max-width: 1000px; margin: 0 auto; padding: 40px 20px; background-color: rgba(47, 54, 64, 0.8); border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);">
+        
+        <header style="margin-bottom: 30px;">
+            <h1 style="font-size: 2.5rem; color: #44bd32; margin-bottom: 15px; text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);">Épisodes</h1>
+            <p style="font-size: 1.2rem; color: #dcdde1; margin-bottom: 20px;">Explorez tous les épisodes de Rick and Morty</p>
+            
+            <nav>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="/home" class="nav-link">Accueil</a></li>
+                    <li class="nav-item"><a href="/character" class="nav-link">Personnages</a></li>
+                    <li class="nav-item"><a href="/location" class="nav-link">Lieux</a></li>
+                    <li class="nav-item"><a href="/episode" class="nav-link active">Épisodes</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <main>
+            <div style="margin: 20px 0;">
+                <p style="font-size: 1.1rem; margin-bottom: 25px; max-width: 700px; margin-left: auto; margin-right: auto;">
+                    Retrouvez tous les épisodes de la série Rick and Morty. Filtrez par saison ou recherchez un épisode spécifique.
+                </p>
+                
+                <!-- Filtres par saison -->
+                <div class="season-filters">
+                    <button class="season-button active">Toutes</button>
+                    <button class="season-button">Saison 1</button>
+                    <button class="season-button">Saison 2</button>
+                    <button class="season-button">Saison 3</button>
+                    <button class="season-button">Saison 4</button>
+                    <button class="season-button">Saison 5</button>
+                </div>
+                
+                <!-- Liste des épisodes -->
+                <div class="episode-list">
+                    <!-- Exemple d'épisode -->
+                    <div class="episode-card">
+                        <div class="episode-info">
+                            <p class="episode-code">S01E01</p>
+                            <h3 class="episode-title">Pilot</h3>
+                            <p class="episode-date">Date de diffusion: 2 décembre 2013</p>
+                        </div>
+                        <button class="view-button">Voir détails</button>
+                    </div>
+                    
+                    <div class="episode-card">
+                        <div class="episode-info">
+                            <p class="episode-code">S01E02</p>
+                            <h3 class="episode-title">Lawnmower Dog</h3>
+                            <p class="episode-date">Date de diffusion: 9 décembre 2013</p>
+                        </div>
+                        <button class="view-button">Voir détails</button>
+                    </div>
+                    
+                    <div class="episode-card">
+                        <div class="episode-info">
+                            <p class="episode-code">S01E03</p>
+                            <h3 class="episode-title">Anatomy Park</h3>
+                            <p class="episode-date">Date de diffusion: 16 décembre 2013</p>
+                        </div>
+                        <button class="view-button">Voir détails</button>
+                    </div>
+                    
+                    <div class="episode-card">
+                        <div class="episode-info">
+                            <p class="episode-code">S01E04</p>
+                            <h3 class="episode-title">M. Night Shaym-Aliens!</h3>
+                            <p class="episode-date">Date de diffusion: 13 janvier 2014</p>
+                        </div>
+                        <button class="view-button">Voir détails</button>
+                    </div>
+                    
+                    <div class="episode-card">
+                        <div class="episode-info">
+                            <p class="episode-code">S01E05</p>
+                            <h3 class="episode-title">Meeseeks and Destroy</h3>
+                            <p class="episode-date">Date de diffusion: 20 janvier 2014</p>
+                        </div>
+                        <button class="view-button">Voir détails</button>
+                    </div>
+                </div>
+                
+                <!-- Pagination -->
+                <div style="margin-top: 40px;">
+                    <button style="padding: 8px 15px; background-color: #44bd32; color: white; border: none; border-radius: 5px; margin: 0 5px; cursor: pointer;">1</button>
+                    <button style="padding: 8px 15px; background-color: rgba(68, 189, 50, 0.3); color: white; border: none; border-radius: 5px; margin: 0 5px; cursor: pointer;">2</button>
+                    <button style="padding: 8px 15px; background-color: rgba(68, 189, 50, 0.3); color: white; border: none; border-radius: 5px; margin: 0 5px; cursor: pointer;">3</button>
+                    <button style="padding: 8px 15px; background-color: rgba(68, 189, 50, 0.3); color: white; border: none; border-radius: 5px; margin: 0 5px; cursor: pointer;">4</button>
+                    <button style="padding: 8px 15px; background-color: rgba(68, 189, 50, 0.3); color: white; border: none; border-radius: 5px; margin: 0 5px; cursor: pointer;">Suivant →</button>
+                </div>
+            </div>
+        </main>
+        
+        <footer style="margin-top: 50px; padding-top: 20px; border-top: 1px solid rgba(220, 221, 225, 0.1); font-size: 0.9rem; color: #a4b0be;">
+            <p>&copy; 2025 Rick and Morty API - Tous droits réservés</p>
+        </footer>
+    </div>
+
+</body>
+</html>
+{{end}}
