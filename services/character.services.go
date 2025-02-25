@@ -120,3 +120,33 @@ func GetAllcharacter() ([]ItemCharacter, int, error) {
 
 
 
+// GetcharacterPage returns pour un characters pour une specifique 
+func GetcharacterPage(page int) (ListCharacters, int, error) {
+	_client := http.Client{
+		Timeout: 5 * time.Second,
+	}
+
+	req, reqErr := http.NewRequest(http.MethodGet, fmt.Sprintf("https://rickandmortyapi.com/api/character?page=%d", page), nil)
+	if reqErr != nil {
+		return ListCharacters{}, http.StatusInternalServerError, fmt.Errorf("GetCharacter - Error preparing request: %s", reqErr)
+	}
+
+	res, resErr := _client.Do(req)
+	if resErr != nil {
+		return ListCharacters{}, http.StatusInternalServerError, fmt.Errorf("GetCharacter - Error sending request: %s", resErr)
+	}
+
+	defer res.Body.Close()
+
+	if res.StatusCode != http.StatusOK {
+		return ListCharacters{}, res.StatusCode, fmt.Errorf("GetCharacter - Error in response code: %d, message: %s", res.StatusCode, res.Status)
+	}
+
+	var data ListCharacters
+	decodeErr := json.NewDecoder(res.Body).Decode(&data)
+	if decodeErr != nil {
+		return ListCharacters{}, http.StatusInternalServerError, fmt.Errorf("GetCharacter - Error decoding data: %s", decodeErr.Error())
+	}
+
+	return data, res.StatusCode, nil
+}

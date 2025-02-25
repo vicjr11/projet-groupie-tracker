@@ -108,4 +108,32 @@ func GetAllepisode() ([]ItemEpisode, int, error) {
 	return ListEpisode, http.StatusOK, nil
 }
 
+func GetepisodePage(page int) (ListEpisode, int, error) {
+	_client := http.Client{
+		Timeout: 5 * time.Second,
+	}
 
+	req, reqErr := http.NewRequest(http.MethodGet, fmt.Sprintf("https://rickandmortyapi.com/api/episode?page=%d", page), nil)
+	if reqErr != nil {
+		return ListEpisode{}, http.StatusInternalServerError, fmt.Errorf("GetEpisode - Error preparing request: %s", reqErr)
+	}
+
+	res, resErr := _client.Do(req)
+	if resErr != nil {
+		return ListEpisode{}, http.StatusInternalServerError, fmt.Errorf("GetEpisode - Error sending request: %s", resErr)
+	}
+
+	defer res.Body.Close()
+
+	if res.StatusCode != http.StatusOK {
+		return ListEpisode{}, res.StatusCode, fmt.Errorf("GetEpisode - Error in response code: %d, message: %s", res.StatusCode, res.Status)
+	}
+
+	var data ListEpisode
+	decodeErr := json.NewDecoder(res.Body).Decode(&data)
+	if decodeErr != nil {
+		return ListEpisode{}, http.StatusInternalServerError, fmt.Errorf("GetEpisode - Error decoding data: %s", decodeErr.Error())
+	}
+
+	return data, res.StatusCode, nil
+}
