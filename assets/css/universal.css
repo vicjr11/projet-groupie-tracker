@@ -218,3 +218,54 @@
       padding: 2rem 1rem;
     }
   }
+
+
+
+
+
+  /* Add this to your universal.css file */
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0;
+  gap: 0.5rem;
+}
+
+.pagination-btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: #3c3e44;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.pagination-btn:hover {
+  background-color: #11b0c8;
+}
+
+.pagination-btn.active {
+  background-color: #11b0c8;
+  font-weight: bold;
+}
+
+.pagination-btn.disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .pagination {
+      flex-wrap: wrap;
+  }
+  
+  .pagination-btn {
+      margin: 0.25rem;
+      padding: 0.4rem 0.8rem;
+  }
+}

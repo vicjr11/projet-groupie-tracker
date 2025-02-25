@@ -117,3 +117,6 @@ func GetAllcharacter() ([]ItemCharacter, int, error) {
 
 	return listCharacters, http.StatusOK, nil
 }
+
+
+

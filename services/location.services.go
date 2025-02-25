@@ -115,3 +115,6 @@ func GetAlllocation() ([]ItemLocation, int, error) {
 
 	return ListLocation, http.StatusOK, nil
 }
+
+
+

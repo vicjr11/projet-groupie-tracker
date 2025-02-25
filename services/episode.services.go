@@ -107,3 +107,5 @@ func GetAllepisode() ([]ItemEpisode, int, error) {
 
 	return ListEpisode, http.StatusOK, nil
 }
+
+

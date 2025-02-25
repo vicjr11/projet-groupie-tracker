@@ -46,10 +46,26 @@
             </article>
             {{end}}
         </section>
-
         <nav class="pagination">
-            <button>Précédent</button>
-            <button>Suivant</button>
+            {{if .HasPrev}}
+            <a href="/character?page={{subtract .Page 1}}" class="pagination-btn">Précédent</a>
+            {{else}}
+            <span class="pagination-btn disabled">Précédent</span>
+            {{end}}
+            
+            {{range $i := sequence 1 .TotalPage}}
+                {{if eq $i $.Page}}
+                <span class="pagination-btn active">{{$i}}</span>
+                {{else}}
+                <a href="/character?page={{$i}}" class="pagination-btn">{{$i}}</a>
+                {{end}}
+            {{end}}
+            
+            {{if .HasNext}}
+            <a href="/character?page={{add .Page 1}}" class="pagination-btn">Suivant</a>
+            {{else}}
+            <span class="pagination-btn disabled">Suivant</span>
+            {{end}}
         </nav>
     </main>
 
