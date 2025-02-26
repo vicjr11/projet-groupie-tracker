@@ -79,12 +79,12 @@
 
         <nav class="pagination">
             {{if .HasPrev}}
-            <a href="/episode?page={{subtract .Page 1}}" class="pagination-btn">Précédent</a>
+            <a href="/episode?page={{1}}" class="pagination-btn">Précédent</a>
             {{else}}
             <span class="pagination-btn disabled">Précédent</span>
             {{end}}
             
-            {{range $i := sequence 1 .TotalPage}}
+            {{range $i := .TotalPage}}
                 {{if eq $i $.Page}}
                 <span class="pagination-btn active">{{$i}}</span>
                 {{else}}
@@ -93,7 +93,7 @@
             {{end}}
             
             {{if .HasNext}}
-            <a href="/episode?page={{add .Page 1}}" class="pagination-btn">Suivant</a>
+            <a href="/episode?page={{1}}" class="pagination-btn">Suivant</a>
             {{else}}
             <span class="pagination-btn disabled">Suivant</span>
             {{end}}
