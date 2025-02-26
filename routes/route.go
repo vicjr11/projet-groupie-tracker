@@ -22,5 +22,12 @@ func LocationRoutes() {
 }
 
 func FavorisRoutes() {
-	http.HandleFunc("/favoris",controllers.FavorisControllers)  // configure la route pour les favoris
+	http.HandleFunc("/favoris", controllers.FavorisControllers) // configure la route pour les favoris
+}
+
+func DetailRoutes() {
+	http.HandleFunc("/details",controllers.DetailsControllers)  // configure la route pour les favoris
+}
+func SearchRoutes() {
+	http.HandleFunc("/search", controllers.SearchControllers) // Configure la route pour la recherche
 }

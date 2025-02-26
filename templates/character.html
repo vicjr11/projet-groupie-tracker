@@ -48,7 +48,7 @@
         </section>
         <nav class="pagination">
             {{if .HasPrev}}
-            <a href="/character?page={{subtract .Page 1}}" class="pagination-btn">Précédent</a>
+            <a href="/character?page={{Subtract .Page 1}}" class="pagination-btn">Précédent</a>
             {{else}}
             <span class="pagination-btn disabled">Précédent</span>
             {{end}}

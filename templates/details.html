@@ -1,0 +1,138 @@
+{{define "characterDetail"}}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Character.Name}} - Rick & Morty Fan Site</title>
+    <link rel="stylesheet" href="/assets/css/universal.css">
+    <link rel="stylesheet" href="/assets/css/character-detail.css">
+    <link rel="stylesheet" href="/assets/css/animation.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <h1>Rick & Morty</h1>
+            <ul>
+                <li><a href="/home">Accueil</a></li>
+                <li><a href="/character">Personnages</a></li>
+                <li><a href="/episode">Épisodes</a></li>
+                <li><a href="/location">Lieux</a></li>
+                <li><a href="/favoris">Favoris</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="character-detail-container">
+        <section class="character-profile fade-in">
+            <div class="character-header">
+                <h2>{{.Character.Name}}</h2>
+                <div class="character-status">
+                    <span class="status-indicator status-{{.Character.Status | ToLower}}"></span>
+                    <span>{{.Character.Status}} - {{.Character.Species}}</span>
+                </div>
+                <button class="favorite-btn" data-id="{{.Character.Id}}">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                    Ajouter aux favoris
+                </button>
+            </div>
+            
+            <div class="character-content">
+                <div class="character-image-container">
+                    <img src="{{.Character.Image}}" alt="{{.Character.Name}}" class="character-image">
+                </div>
+                
+                <div class="character-info">
+                    <div class="info-section">
+                        <h3>Informations générales</h3>
+                        <dl>
+                            <dt>Genre</dt>
+                            <dd>{{.Character.Gender}}</dd>
+                            
+                            <dt>Espèce</dt>
+                            <dd>{{.Character.Species}}</dd>
+                            
+                            {{if .Character.Type}}
+                            <dt>Type</dt>
+                            <dd>{{.Character.Type}}</dd>
+                            {{end}}
+                            
+                            <dt>Statut</dt>
+                            <dd>{{.Character.Status}}</dd>
+                        </dl>
+                    </div>
+                    
+                    <div class="info-section">
+                        <h3>Origine</h3>
+                        <dl>
+                            <dt>Planète</dt>
+                            <dd>{{.Character.Origin.Name}}</dd>
+                            
+                            {{if .OriginInfo.dimension}}
+                            <dt>Dimension</dt>
+                            <dd>{{.OriginInfo.dimension}}</dd>
+                            {{end}}
+                            
+                            {{if .OriginInfo.type}}
+                            <dt>Type</dt>
+                            <dd>{{.OriginInfo.type}}</dd>
+                            {{end}}
+                        </dl>
+                    </div>
+                    
+                    <div class="info-section">
+                        <h3>Localisation actuelle</h3>
+                        <dl>
+                            <dt>Lieu</dt>
+                            <dd>{{.Character.Location.Name}}</dd>
+                            
+                            {{if .LocationInfo.dimension}}
+                            <dt>Dimension</dt>
+                            <dd>{{.LocationInfo.dimension}}</dd>
+                            {{end}}
+                            
+                            {{if .LocationInfo.type}}
+                            <dt>Type</dt>
+                            <dd>{{.LocationInfo.type}}</dd>
+                            {{end}}
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="episodes-section fade-in">
+            <h3>Apparaît dans {{len .Episodes}} épisodes</h3>
+            <div class="episodes-list">
+                {{range .Episodes}}
+                <div class="episode-card">
+                    <div class="episode-info">
+                        <h4>{{.Episode}} - {{.Name}}</h4>
+                        <p>Date de diffusion: {{.AirDate}}</p>
+                    </div>
+                    <a href="/episode?id={{.Id}}" class="episode-link">Voir l'épisode</a>
+                </div>
+                {{end}}
+            </div>
+        </section>
+        
+        <div class="back-to-characters">
+            <a href="/character" class="back-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                </svg>
+                Retour à la liste des personnages
+            </a>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Rick & Morty Fan Site. Tous droits réservés.</p>
+    </footer>
+    
+    <script src="/assets/js/details.js"></script>
+</body>
+</html>
+{{end}}
