@@ -20,6 +20,7 @@ type Character struct {
 	} `json:"location"`
 	Image   string   `json:"image"`
 	Episode []string `json:"episode"`
+	Url     string  `json:"url"`
 }
 
 type ListCharacters struct {

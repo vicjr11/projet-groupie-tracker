@@ -29,7 +29,7 @@ func CharacterDetailController(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Get character details
-	character, statusCode, detailErr := services.CharacterDetail(id)
+	character, statusCode, detailErr := services.GetCharacterDetail(id)
 	if detailErr != nil {
 		http.Error(w, detailErr.Error(), statusCode)
 		return

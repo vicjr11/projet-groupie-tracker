@@ -13,6 +13,8 @@ type Location struct {
 	Type      string `json:"type"`
 	Dimension string `json:"dimension"`
 	Residents string `json:"resident"`
+	Url       string  `json:"url"`
+
 }
 
 type ListLocation struct {
