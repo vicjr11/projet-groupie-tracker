@@ -2,17 +2,12 @@ package controllers
 
 import (
 	"net/http"
+	"projet-groupie-tracker/models"
 	"projet-groupie-tracker/services"
 	temp "projet-groupie-tracker/templates"
 	"strconv"
 )
 
-type CharacterDetailData struct {
-	Character    services.CharacterDetail
-	Episodes     []services.Episode
-	OriginInfo   map[string]interface{}
-	LocationInfo map[string]interface{}
-}
 
 func CharacterDetailController(w http.ResponseWriter, r *http.Request) {
 	// Get character ID from URL parameter
@@ -57,8 +52,8 @@ func CharacterDetailController(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Prepare data for template
-	detailData := CharacterDetailData{
-		Character:    character,
+	detailData := models.CharacterDetail{
+		Character:  Character,
 		Episodes:     episodes,
 		OriginInfo:   originInfo,
 		LocationInfo: locationInfo,

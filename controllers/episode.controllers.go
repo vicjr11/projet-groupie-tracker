@@ -2,13 +2,14 @@ package controllers
 
 import (
 	"net/http"
+	"projet-groupie-tracker/models"
 	"projet-groupie-tracker/services"
-	"projet-groupie-tracker/templates"
+	temp "projet-groupie-tracker/templates"
 	"strconv"
 )
 
 func EpisodeControllers(w http.ResponseWriter, r *http.Request) {
-	   	// Get page from query parameter, default to 1
+	// Get page from query parameter, default to 1
 	pageStr := r.URL.Query().Get("page")
 	page := 1
 	if pageStr != "" {
@@ -18,15 +19,15 @@ func EpisodeControllers(w http.ResponseWriter, r *http.Request) {
 			page = 1
 		}
 	}
-// Get characters for specified page
+	// Get characters for specified page
 	listEpisode, statusCode, errors := services.GetepisodePage(page)
 	if errors != nil {
 		http.Error(w, errors.Error(), statusCode)
 		return
 	}
-	
+
 	paginationData := struct {
-		Data      services.ListEpisode
+		Data      models.ListEpisode 
 		Page      int
 		HasPrev   bool
 		HasNext   bool
@@ -38,6 +39,6 @@ func EpisodeControllers(w http.ResponseWriter, r *http.Request) {
 		HasNext:   page < listEpisode.Info.Pages,
 		TotalPage: listEpisode.Info.Pages,
 	}
-	
-	temp.Temp.ExecuteTemplate(w, "episode" , paginationData)
+
+	temp.Temp.ExecuteTemplate(w, "episode", paginationData)
 }

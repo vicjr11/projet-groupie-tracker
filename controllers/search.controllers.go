@@ -40,3 +40,4 @@ func SearchControllers(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("templates/search.html"))
 	tmpl.Execute(w, data)
 }
+

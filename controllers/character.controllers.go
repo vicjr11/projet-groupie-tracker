@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"net/http"
+	"projet-groupie-tracker/models"
 	"projet-groupie-tracker/services"
 	temp "projet-groupie-tracker/templates"
 	"strconv"
@@ -20,7 +21,7 @@ func CharactersControllers(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Get characters for specified page
-	listCharacters, statusCode, errors := services.GetcharacterPage(page)
+	listCharacters, statusCode, errors := services.CharacterPage(page)
 	if errors != nil {
 		http.Error(w, errors.Error(), statusCode)
 		return
@@ -28,7 +29,7 @@ func CharactersControllers(w http.ResponseWriter, r *http.Request) {
 
 	// Creation de la pagination data
 	paginationData := struct {
-		Data      services.ListCharacters
+		Data      models.ListCharacters
 		Page      int
 		HasPrev   bool
 		HasNext   bool

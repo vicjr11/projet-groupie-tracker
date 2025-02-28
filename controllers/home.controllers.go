@@ -2,11 +2,11 @@ package controllers
 
 import (
 	"net/http"
-	"projet-groupie-tracker/services"
 	temp "projet-groupie-tracker/templates"
+	"projet-groupie-tracker/utils"
 )
 
 func HomeControllers(w http.ResponseWriter, r *http.Request) {
-	services.GetAllepisode()
+	utils.GetAllepisode()
 	temp.Temp.ExecuteTemplate(w, "home", nil)
 }
