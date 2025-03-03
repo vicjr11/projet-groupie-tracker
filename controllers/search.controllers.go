@@ -3,6 +3,7 @@ package controllers
 import (
 	"html/template"
 	"net/http"
+	"projet-groupie-tracker/models"
 	"projet-groupie-tracker/services"
 )
 
@@ -28,7 +29,7 @@ func SearchControllers(w http.ResponseWriter, r *http.Request) {
 	// Préparer les données pour le template
 	data := struct {
 		Query   string
-		Results []services.SearchResult
+		Results []models.SearchResult
 		Count   int
 	}{
 		Query:   query,

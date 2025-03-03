@@ -9,26 +9,12 @@ import (
 	"time"
 )
 
-// Structures existantes
-type CharacterDetail struct {
-	Id       int      `json:"id"`
-	Name     string   `json:"name"`
-	Status   string   `json:"status"`
-	Species  string   `json:"species"`
-	Type     string   `json:"type"`
-	Gender   string   `json:"gender"`
-	Origin   Location `json:"origin"`
-	Location Location `json:"location"`
-	Image    string   `json:"image"`
-	Episode  []string `json:"episode"`
-	Created  string   `json:"created"`
-	Url      string   `json:"url"`
-}
+
 
 
 // FavoritesManager gère les favoris des utilisateurs
 type FavoritesManager struct {
-	CharacterFavorites map[int]CharacterDetail
+	CharacterFavorites map[int]models.CharacterDetail
 	EpisodeFavorites   map[int] models.Episode
 	LocationFavorites  map[int]map[string]interface{}
 	mu                 sync.RWMutex // Pour protéger l'accès concurrent
@@ -37,7 +23,7 @@ type FavoritesManager struct {
 // NewFavoritesManager crée une nouvelle instance de gestionnaire de favoris
 func NewFavoritesManager() *FavoritesManager {
 	return &FavoritesManager{
-		CharacterFavorites: make(map[int]CharacterDetail),
+		CharacterFavorites: make(map[int]models.CharacterDetail),
 		EpisodeFavorites:   make(map[int]models.Episode),
 		LocationFavorites:  make(map[int]map[string]interface{}),
 	}
@@ -96,11 +82,11 @@ func (fm *FavoritesManager) RemoveCharacterFromFavorites(characterId int) error 
 }
 
 // GetFavoriteCharacters retourne tous les personnages favoris
-func (fm *FavoritesManager) GetFavoriteCharacters() []CharacterDetail {
+func (fm *FavoritesManager) GetFavoriteCharacters() []models.CharacterDetail {
 	fm.mu.RLock()
 	defer fm.mu.RUnlock()
 
-	characters := make([]CharacterDetail, 0, len(fm.CharacterFavorites))
+	characters := make([]models.CharacterDetail, 0, len(fm.CharacterFavorites))
 	for _, character := range fm.CharacterFavorites {
 		characters = append(characters, character)
 	}
@@ -220,31 +206,31 @@ func (fm *FavoritesManager) GetAllFavorites() map[string]interface{} {
 }
 
 // GetCharacterDetail fetches complete information for a single character by ID
-func GetCharacterDetail(id int) (CharacterDetail, int, error) {
+func GetCharacterDetail(id int) (models.CharacterDetail, int, error) {
 	_client := http.Client{
 		Timeout: 5 * time.Second,
 	}
 
 	req, reqErr := http.NewRequest(http.MethodGet, fmt.Sprintf("https://rickandmortyapi.com/api/character/%d", id), nil)
 	if reqErr != nil {
-		return CharacterDetail{}, http.StatusInternalServerError, fmt.Errorf("GetCharacterDetail - Error preparing request: %s", reqErr)
+		return models.CharacterDetail{}, http.StatusInternalServerError, fmt.Errorf("GetCharacterDetail - Error preparing request: %s", reqErr)
 	}
 
 	res, resErr := _client.Do(req)
 	if resErr != nil {
-		return CharacterDetail{}, http.StatusInternalServerError, fmt.Errorf("GetCharacterDetail - Error sending request: %s", resErr)
+		return models.CharacterDetail{}, http.StatusInternalServerError, fmt.Errorf("GetCharacterDetail - Error sending request: %s", resErr)
 	}
 
 	defer res.Body.Close()
 
 	if res.StatusCode != http.StatusOK {
-		return CharacterDetail{}, res.StatusCode, fmt.Errorf("GetCharacterDetail - Error in response code: %d, message: %s", res.StatusCode, res.Status)
+		return models.CharacterDetail{}, res.StatusCode, fmt.Errorf("GetCharacterDetail - Error in response code: %d, message: %s", res.StatusCode, res.Status)
 	}
 
-	var data CharacterDetail
+	var data models.CharacterDetail
 	decodeErr := json.NewDecoder(res.Body).Decode(&data)
 	if decodeErr != nil {
-		return CharacterDetail{}, http.StatusInternalServerError, fmt.Errorf("GetCharacterDetail - Error decoding data: %s", decodeErr.Error())
+		return models.CharacterDetail{}, http.StatusInternalServerError, fmt.Errorf("GetCharacterDetail - Error decoding data: %s", decodeErr.Error())
 	}
 
 	return data, res.StatusCode, nil

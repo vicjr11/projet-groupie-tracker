@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"net/http"
+	"projet-groupie-tracker/models"
 	"projet-groupie-tracker/services"
 	temp "projet-groupie-tracker/templates"
 	"strconv"
@@ -26,7 +27,7 @@ func LocationControllers(w http.ResponseWriter, r *http.Request) {
 	}
 
 	paginationData := struct {
-		Data      services.ListLocation
+		Data      models.ListLocation
 		Page      int
 		HasPrev   bool
 		HasNext   bool

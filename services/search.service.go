@@ -7,11 +7,7 @@ import (
 )
 
 // SearchResult représente un résultat de recherche qui peut être n'importe quel type (Character, Episode, Location)
-type SearchResult struct {
-	Type     string      
-	Data     interface{} 
-	Matching []string    
-}
+
 
 // ItemCharacter représente un personnage de Rick and Morty
 
@@ -23,9 +19,9 @@ type SearchResult struct {
 
 
 // SearchCharacters recherche des personnages par nom et espèce
-func SearchCharacters(query string, characters []models.ItemCharacter) []SearchResult {
+func SearchCharacters(query string, characters []models.ItemCharacter) []models.SearchResult {
 
-	results := []SearchResult{}
+	results := []models.SearchResult{}
 
 	// Convertir la requête en minuscules pour une recherche insensible à la casse
 	loweredQuery := strings.ToLower(query)
@@ -45,7 +41,7 @@ func SearchCharacters(query string, characters []models.ItemCharacter) []SearchR
 
 		// Si au moins une propriété correspond, ajouter aux résultats
 		if len(matching) > 0 {
-			results = append(results, SearchResult{
+			results = append(results, models.SearchResult{
 				Type:     "character",
 				Data:     character,
 				Matching: matching,
@@ -57,8 +53,8 @@ func SearchCharacters(query string, characters []models.ItemCharacter) []SearchR
 }
 
 // SearchEpisodes recherche des épisodes par nom et code d'épisode
-func SearchEpisodes(query string, episodes []models.ItemEpisode) []SearchResult {
-	results := []SearchResult{}
+func SearchEpisodes(query string, episodes []models.ItemEpisode) []models.SearchResult {
+	results := []models.SearchResult{}
 
 	// Convertir la requête en minuscules pour une recherche insensible à la casse
 	loweredQuery := strings.ToLower(query)
@@ -72,13 +68,13 @@ func SearchEpisodes(query string, episodes []models.ItemEpisode) []SearchResult 
 		}
 
 		// Vérifier si le code d'épisode correspond
-		if strings.Contains(strings.ToLower(episodes.Episodes), loweredQuery) {
+		if strings.Contains(strings.ToLower(episode.Episodes), loweredQuery) {
 			matching = append(matching, "episode")
 		}
 
 		// Si au moins une propriété correspond, ajouter aux résultats
 		if len(matching) > 0 {
-			results = append(results, SearchResult{
+			results = append(results, models.SearchResult{
 				Type:     "episode",
 				Data:     episode,
 				Matching: matching,
@@ -90,8 +86,8 @@ func SearchEpisodes(query string, episodes []models.ItemEpisode) []SearchResult 
    }
 
 // SearchLocations recherche des lieux par nom et type
-func SearchLocations(query string, locations []models.ItemLocation) []SearchResult {
-	results := []SearchResult{}
+func SearchLocations(query string, locations []models.ItemLocation) []models.SearchResult {
+	results := []models.SearchResult{}
 
 	// Convertir la requête en minuscules pour une recherche insensible à la casse
 	loweredQuery := strings.ToLower(query)
@@ -116,7 +112,7 @@ func SearchLocations(query string, locations []models.ItemLocation) []SearchResu
 
 		// Si au moins une propriété correspond, ajouter aux résultats
 		if len(matching) > 0 {
-			results = append(results, SearchResult{
+			results = append(results, models.SearchResult{
 				Type:     "location",
 				Data:     location,
 				Matching: matching,
@@ -128,8 +124,8 @@ func SearchLocations(query string, locations []models.ItemLocation) []SearchResu
 }
 
 // SearchAll effectue une recherche sur toutes les collections
-func SearchAll(query string) ([]SearchResult, error) {
-	allResults := []SearchResult{}
+func SearchAll(query string) ([]models.SearchResult, error) {
+	allResults := []models.SearchResult{}
 
 	// Récupérer tous les personnages
 	characters, status, err := utils.GetAllcharacter()
