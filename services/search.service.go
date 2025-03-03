@@ -6,17 +6,6 @@ import (
 	"strings"
 )
 
-// SearchResult représente un résultat de recherche qui peut être n'importe quel type (Character, Episode, Location)
-
-
-// ItemCharacter représente un personnage de Rick and Morty
-
-
-// ItemEpisode représente un épisode de Rick and Morty
-
-
-// ItemLocation représente un lieu de Rick and Morty
-
 
 // SearchCharacters recherche des personnages par nom et espèce
 func SearchCharacters(query string, characters []models.ItemCharacter) []models.SearchResult {

@@ -77,6 +77,3 @@ func CharacterPage(page int) (models.ListCharacters, int, error) {
 
     return data, res.StatusCode, nil
 }
-
-
-//

@@ -14,21 +14,28 @@ var Temp *template.Template
 func InitTemplates() {
 	fileServer := http.FileServer(http.Dir("./assets"))
 	http.Handle("/assets/", http.StripPrefix("/assets/", fileServer))
-	temp, tempErr := template.ParseGlob("./templates/*.html")
+	
+	// Définir d'abord le FuncMap
+	funcMap := template.FuncMap{
+		"add":      func(a, b int) int { return a + b },
+		"Subtract": func(a, b int) int { return a - b },
+		"sequence": generateSequence,
+	}
+	
+	// Créer un template avec le FuncMap
+	temp := template.New("").Funcs(funcMap)
+	
+	// Ensuite parser les templates
+	var tempErr error
+	temp, tempErr = temp.ParseGlob("./templates/*.html")
+	
 	if tempErr != nil {
 		fmt.Printf("Erreur Template - Une erreur lors du chargement des template \n message d'erreur : %v\n", tempErr.Error())
 		os.Exit(1)
 	}
 
-	// Define custom template functions
-
+	// Assigner à la variable globale
 	Temp = temp
-
-	Temp.Funcs(template.FuncMap{
-		"add":      func(a, b int) int { return a + b },
-		"Subtract": func(a, b int) int { return a - b },
-		"sequence": generateSequence,
-	})
 }
 
 func generateSequence(start, end int) []int {

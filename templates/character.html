@@ -5,9 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personnages - Rick & Morty Fan Site</title>
-    <link rel="stylesheet" href="/assets/css/characters.css">
-    <link rel="stylesheet" href="/assets/css/animation.css">
-    <link rel="stylesheet" href="/assets/css/universal.css">
 </head>
 <body>
     <header>
@@ -33,22 +30,23 @@
         </section>
 
         <section class="characters-grid">
-            {{range .Results}}
-            <article class="character-card fade-in">
+            {{range .Data.Results}}
+            <article class="character-card">
                 <img src="{{.Image}}" alt="{{.Name}}">
                 <div class="character-info">
                     <h3>{{.Name}}</h3>
                     <p>Espèce: {{.Species}}</p>
                     <p>Type: {{if .Type}}{{.Type}}{{else}}Non spécifié{{end}}</p>
                     <p>Gender: {{.Gender}}</p>
-                    <button class="favorite-btn card-hover" data-id="{{.Id}}">Ajouter aux favoris</button>
+                    <button class="favorite-btn" data-id="{{.Id}}">Ajouter aux favoris</button>
                 </div>
             </article>
             {{end}}
         </section>
+        
         <nav class="pagination">
             {{if .HasPrev}}
-            <a href="/character?page={{.Page 1}}" class="pagination-btn">Précédent</a>
+            <a href="/character?page={{.Page | add -1}}" class="pagination-btn">Précédent</a>
             {{else}}
             <span class="pagination-btn disabled">Précédent</span>
             {{end}}
@@ -62,7 +60,7 @@
             {{end}}
             
             {{if .HasNext}}
-            <a href="/character?page={{1}}" class="pagination-btn">Suivant</a>
+            <a href="/character?page={{.Page | add 1}}" class="pagination-btn">Suivant</a>
             {{else}}
             <span class="pagination-btn disabled">Suivant</span>
             {{end}}

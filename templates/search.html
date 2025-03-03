@@ -1,203 +1,136 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recherche - Rick and Morty</title>
+    <title>Rick and Morty Search Results</title>
     <link rel="stylesheet" href="/static/css/style.css">
-    <style>
-        .search-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        .search-form {
-            display: flex;
-            margin-bottom: 30px;
-        }
-        
-        .search-input {
-            flex-grow: 1;
-            padding: 10px;
-            font-size: 16px;
-            border: 2px solid #97ce4c;
-            border-radius: 4px 0 0 4px;
-        }
-        
-        .search-button {
-            padding: 10px 20px;
-            background-color: #97ce4c;
-            color: white;
-            border: none;
-            border-radius: 0 4px 4px 0;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        
-        .results-info {
-            margin-bottom: 20px;
-            font-size: 18px;
-        }
-        
-        .results-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-        }
-        
-        .result-card {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            overflow: hidden;
-            transition: transform 0.3s;
-        }
-        
-        .result-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .result-header {
-            padding: 10px;
-            background-color: #333;
-            color: white;
-            font-weight: bold;
-        }
-        
-        .result-body {
-            padding: 15px;
-        }
-        
-        .result-img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-        }
-        
-        .result-type {
-            display: inline-block;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            margin-bottom: 10px;
-        }
-        
-        .type-character {
-            background-color: #97ce4c;
-            color: white;
-        }
-        
-        .type-episode {
-            background-color: #44281d;
-            color: white;
-        }
-        
-        .type-location {
-            background-color: #f0e14a;
-            color: black;
-        }
-        
-        .matched {
-            font-style: italic;
-            color: #666;
-            font-size: 14px;
-        }
-    </style>
 </head>
 <body>
     <header>
-        <!-- Inclure votre header ici -->
         <nav>
-            <ul>
-                <li><a href="/">Accueil</a></li>
-                <li><a href="/character">Personnages</a></li>
-                <li><a href="/episode">Épisodes</a></li>
-                <li><a href="/location">Lieux</a></li>
-                <li><a href="/favoris">Favoris</a></li>
-                <li><a href="/search" class="active">Recherche</a></li>
+            <div class="logo">
+                <a href="/"><img src="/static/img/logo.png" alt="Rick and Morty"></a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/characters">Characters</a></li>
+                <li><a href="/episodes">Episodes</a></li>
+                <li><a href="/locations">Locations</a></li>
             </ul>
         </nav>
     </header>
 
-    <main class="search-container">
-        <h1>Recherche dans Rick and Morty</h1>
+    <div class="search-results">
+        <h1>Search Results for "{{.Query}}"</h1>
         
-        <form class="search-form" action="/search" method="GET">
-            <input type="text" name="q" placeholder="Rechercher un personnage, un épisode ou un lieu..." class="search-input" value="{{.Query}}">
-            <button type="submit" class="search-button">Rechercher</button>
+        <form class="search-form" action="/services/search.service.go" method="GET">
+            <input type="text" name="q" class="search-input" placeholder="Search characters, episodes, locations..." value="{{.Query}}">
+            <button type="submit" class="search-button">Search</button>
         </form>
         
-        {{if .Query}}
-            <div class="results-info">
-                {{if eq .Count 0}}
-                    <p>Aucun résultat trouvé pour "{{.Query}}"</p>
-                {{else}}
-                    <p>{{.Count}} résultat(s) trouvé(s) pour "{{.Query}}"</p>
-                {{end}}
-            </div>
-            
-            <div class="results-container">
-                {{range .Results}}
-                    <div class="result-card">
+        {{if .Results}}
+            {{if .HasCharacters}}
+            <div class="result-section">
+                <h2>Characters</h2>
+                <div class="results-grid">
+                    {{range .Results}}
                         {{if eq .Type "character"}}
-                            <div class="result-header">Personnage</div>
-                            {{with .Data}}
-                                {{if .Image}}
-                                    <img src="{{.Image}}" alt="{{.Name}}" class="result-img">
-                                {{end}}
-                                <div class="result-body">
-                                    <span class="result-type type-character">Personnage</span>
-                                    <h3>{{.Name}}</h3>
-                                    <p>Espèce: {{.Species}}</p>
-                                    <div class="matched">Correspond à: {{range $i, $m := $.Matching}}{{if $i}}, {{end}}{{$m}}{{end}}</div>
-                                    <a href="/details?id={{.Id}}&type=character">Voir les détails</a>
+                            <div class="result-card">
+                                <img src="{{.Data.Image}}" alt="{{.Data.Name}}" class="card-image">
+                                <div class="card-content">
+                                    <div class="card-title">{{.Data.Name}}</div>
+                                    <div class="card-details">
+                                        <p>Species: {{.Data.Species}}</p>
+                                        <p>Status: {{.Data.Status}}</p>
+                                        <p>Gender: {{.Data.Gender}}</p>
+                                        <p>Origin: {{.Data.Origin.Name}}</p>
+                                    </div>
+                                    <div class="match-details">
+                                        {{range .Matching}}
+                                            <span class="match-highlight">{{.}}</span>
+                                        {{end}}
+                                    </div>
+                                    <div class="card-link">
+                                        <a href="/character/{{.Data.ID}}">View Details</a>
+                                    </div>
                                 </div>
-                            {{end}}
-                        {{else if eq .Type "episode"}}
-                            <div class="result-header">Épisode</div>
-                            <div class="result-body">
-                                <span class="result-type type-episode">Épisode</span>
-                                {{with .Data}}
-                                    <h3>{{.Name}}</h3>
-                                    <p>Code: {{.Episode}}</p>
-                                    <p>Diffusion: {{.Air_date}}</p>
-                                    <div class="matched">Correspond à: {{range $i, $m := $.Matching}}{{if $i}}, {{end}}{{$m}}{{end}}</div>
-                                    <a href="/details?id={{.Id}}&type=episode">Voir les détails</a>
-                                {{end}}
-                            </div>
-                        {{else if eq .Type "location"}}
-                            <div class="result-header">Lieu</div>
-                            <div class="result-body">
-                                <span class="result-type type-location">Lieu</span>
-                                {{with .Data}}
-                                    <h3>{{.Name}}</h3>
-                                    <p>Type: {{.Type}}</p>
-                                    <p>Dimension: {{.Dimension}}</p>
-                                    <div class="matched">Correspond à: {{range $i, $m := $.Matching}}{{if $i}}, {{end}}{{$m}}{{end}}</div>
-                                    <a href="/details?id={{.Id}}&type=location">Voir les détails</a>
-                                {{end}}
                             </div>
                         {{end}}
-                    </div>
-                {{end}}
+                    {{end}}
+                </div>
             </div>
+            {{end}}
+            
+            {{if .HasEpisodes}}
+            <div class="result-section">
+                <h2>Episodes</h2>
+                <div class="results-grid">
+                    {{range .Results}}
+                        {{if eq .Type "episode"}}
+                            <div class="result-card">
+                                <div class="card-content">
+                                    <div class="card-title">{{.Data.Name}}</div>
+                                    <div class="card-details">
+                                        <p>Episode: {{.Data.Episodes}}</p>
+                                        <p>Air Date: {{.Data.Air_date}}</p>
+                                        <p>Characters: {{len .Data.Characters}}</p>
+                                    </div>
+                                    <div class="match-details">
+                                        {{range .Matching}}
+                                            <span class="match-highlight">{{.}}</span>
+                                        {{end}}
+                                    </div>
+                                    <div class="card-link">
+                                        <a href="/episode/{{.Data.ID}}">View Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {{end}}
+                    {{end}}
+                </div>
+            </div>
+            {{end}}
+            
+            {{if .HasLocations}}
+            <div class="result-section">
+                <h2>Locations</h2>
+                <div class="results-grid">
+                    {{range .Results}}
+                        {{if eq .Type "location"}}
+                            <div class="result-card">
+                                <div class="card-content">
+                                    <div class="card-title">{{.Data.Name}}</div>
+                                    <div class="card-details">
+                                        <p>Type: {{.Data.Type}}</p>
+                                        <p>Dimension: {{.Data.Dimension}}</p>
+                                        <p>Residents: {{len .Data.Residents}}</p>
+                                    </div>
+                                    <div class="match-details">
+                                        {{range .Matching}}
+                                            <span class="match-highlight">{{.}}</span>
+                                        {{end}}
+                                    </div>
+                                    <div class="card-link">
+                                        <a href="/location/{{.Data.ID}}">View Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {{end}}
+                    {{end}}
+                </div>
+            </div>
+            {{end}}
         {{else}}
-            <div class="empty-search">
-                <p>Utilisez la barre de recherche ci-dessus pour trouver des personnages, des épisodes ou des lieux.</p>
-                <p>Vous pouvez rechercher par:</p>
-                <ul>
-                    <li>Nom ou espèce pour les <strong>personnages</strong></li>
-                    <li>Nom ou code pour les <strong>épisodes</strong></li>
-                    <li>Nom, type ou dimension pour les <strong>lieux</strong></li>
-                </ul>
+            <div class="no-results">
+                <h2>No results found for "{{.Query}}"</h2>
+                <p>Try different keywords or check your spelling.</p>
             </div>
         {{end}}
-    </main>
+    </div>
 
     <footer>
-        <!-- Inclure votre footer ici -->
-        <p>&copy; 2025 Rick and Morty Explorer</p>
+        <p>&copy; 2025 Rick and Morty API Explorer | Data from <a href="https://rickandmortyapi.com" target="_blank">The Rick and Morty API</a></p>
     </footer>
 </body>
 </html>
