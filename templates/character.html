@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personnages - Rick & Morty Fan Site</title>
+    <link rel="stylesheet" href="/assets/css/characters.css">
+    <link rel="stylesheet" href="/assets/css/animation.css">
+    <link rel="stylesheet" href="/assets/css/universal.css">
+    <script src="/assets/js/character.js" defer></script>
 </head>
 <body>
     <header>
@@ -23,22 +27,22 @@
     <main>
         <section class="search">
             <h2>Personnages</h2>
-            <form>
-                <input type="text" placeholder="Rechercher un personnage...">
+            <form action="/search" method="GET">
+                <input type="text" name="q" placeholder="Rechercher un personnage...">
                 <button type="submit">Rechercher</button>
             </form>
         </section>
 
         <section class="characters-grid">
-            {{range .Data.Results}}
-            <article class="character-card">
+            {{range .Results}}
+            <article class="character-card fade-in">
                 <img src="{{.Image}}" alt="{{.Name}}">
                 <div class="character-info">
                     <h3>{{.Name}}</h3>
                     <p>Espèce: {{.Species}}</p>
-                    <p>Type: {{if .Type}}{{.Type}}{{else}}Non spécifié{{end}}</p>
-                    <p>Gender: {{.Gender}}</p>
-                    <button class="favorite-btn" data-id="{{.Id}}">Ajouter aux favoris</button>
+                    <p>Statut: {{.Status}}</p>
+                    <p>Genre: {{.Gender}}</p>
+                    <button class="favorite-btn card-hover" data-id="{{.ID}}">Ajouter aux favoris</button>
                 </div>
             </article>
             {{end}}
@@ -46,21 +50,23 @@
         
         <nav class="pagination">
             {{if .HasPrev}}
-            <a href="/character?page={{.Page | add -1}}" class="pagination-btn">Précédent</a>
+            <a href="/character?page={{.PrevPage}}" class="pagination-btn">Précédent</a>
             {{else}}
             <span class="pagination-btn disabled">Précédent</span>
             {{end}}
             
-            {{range $i := .TotalPage}}
-                {{if eq $i $.Page}}
-                <span class="pagination-btn active">{{$i}}</span>
+            {{range .PageNumbers}}
+                {{if eq . -1}}
+                <span class="pagination-btn disabled">...</span>
+                {{else if eq . $.Page}}
+                <span class="pagination-btn active">{{.}}</span>
                 {{else}}
-                <a href="/character?page={{$i}}" class="pagination-btn">{{$i}}</a>
+                <a href="/character?page={{.}}" class="pagination-btn">{{.}}</a>
                 {{end}}
             {{end}}
             
             {{if .HasNext}}
-            <a href="/character?page={{.Page | add 1}}" class="pagination-btn">Suivant</a>
+            <a href="/character?page={{.NextPage}}" class="pagination-btn">Suivant</a>
             {{else}}
             <span class="pagination-btn disabled">Suivant</span>
             {{end}}

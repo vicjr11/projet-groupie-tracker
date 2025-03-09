@@ -136,21 +136,26 @@ func SearchAll(query string) ([]models.SearchResult, error) {
 
 	// Convertir les utils.ItemCharacter en services.ItemCharacter
 	var serviceCharacters []models.ItemCharacter
-	for _, char := range characters {
-		serviceCharacters = append(serviceCharacters, models.ItemCharacter{
-			ID:       char.ID,
-			Name:     char.Name,
-			Species:  char.Species,
-			Status:   char.Status,
-			Gender:   char.Gender,
-			Origin:   char.Origin,
-			Location: char.Location,
-			Image:    char.Image,
-			Episode:  char.Episode,
-			URL:      char.URL,
-		})
-	}
-
+for _, char := range characters {
+    serviceCharacter := models.ItemCharacter{
+        ID:       char.ID,
+        Name:     char.Name,
+        Species:  char.Species,
+        Status:   char.Status,
+        Gender:   char.Gender,
+        Image:    char.Image,
+        Episode:  char.Episode,
+        URL:      char.URL,
+    }
+    
+    // Set default values for the nested structs
+    serviceCharacter.Origin.Name = "" // Use the string as Name
+    serviceCharacter.Origin.Url = ""           // Empty URL by default
+    serviceCharacter.Location.Name = "" // Use the string as Name
+    serviceCharacter.Location.Url = ""         // Empty URL by default
+    
+    serviceCharacters = append(serviceCharacters, serviceCharacter)
+}
 	// Rechercher dans chaque collection
 	characterResults := SearchCharacters(query, serviceCharacters)
 	episodeResults := SearchEpisodes(query, episodes)

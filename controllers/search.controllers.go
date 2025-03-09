@@ -1,32 +1,41 @@
 package controllers
 
 import (
-	"html/template"
 	"net/http"
 	"projet-groupie-tracker/models"
 	"projet-groupie-tracker/services"
+	"projet-groupie-tracker/templates"
+	
 )
 
-// SearchControllers gère les requêtes de recherche
+// SearchControllers handles search requests
 func SearchControllers(w http.ResponseWriter, r *http.Request) {
-	// Récupérer la requête de recherche depuis les paramètres
+	// Get search query from parameters
 	query := r.URL.Query().Get("q")
-	
-	// Si la requête est vide, afficher simplement la page de recherche
+
+	// If query is empty, display empty search page
 	if query == "" {
-		tmpl := template.Must(template.ParseFiles("templates/search.html"))
-		tmpl.Execute(w, nil)
+		data := struct {
+			Query   string
+			Results []models.SearchResult
+			Count   int
+		}{
+			Query:   "",
+			Results: []models.SearchResult{},
+			Count:   0,
+		}
+		temp.Temp.ExecuteTemplate(w, "search", data)
 		return
 	}
-	
-	// Effectuer la recherche
+
+	// Perform search
 	results, err := services.SearchAll(query)
 	if err != nil {
-		http.Error(w, "Erreur lors de la recherche: "+err.Error(), http.StatusInternalServerError)
+		http.Error(w, "Error during search: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
-	
-	// Préparer les données pour le template
+
+	// Prepare data for template
 	data := struct {
 		Query   string
 		Results []models.SearchResult
@@ -36,9 +45,7 @@ func SearchControllers(w http.ResponseWriter, r *http.Request) {
 		Results: results,
 		Count:   len(results),
 	}
-	
-	// Afficher les résultats
-	tmpl := template.Must(template.ParseFiles("templates/search.html"))
-	tmpl.Execute(w, data)
-}
 
+	// Display results using the template system
+	temp.Temp.ExecuteTemplate(w, "search", data)
+}

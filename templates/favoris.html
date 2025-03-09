@@ -1,10 +1,14 @@
+{{define  "favoris"}}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mes Favoris | Rick & Morty</title>
-    <link rel="stylesheet" href="/">
+    <link rel="stylesheet" href="/assets/css/favoris.css">
+    <link rel="stylesheet" href="/assets/css/animation.css">
+    <link rel="stylesheet" href="/assets/css/universal.css">
+    <script src="/assets/js/favoris.js" defer></script>
 </head>
 <body>
     <header>
@@ -18,7 +22,7 @@
                 <a href="/character">Personnages</a>
                 <a href="/episode">Épisodes</a>
                 <a href="/location">Lieux</a>
-                <a href="/favoris" class="active">Favoris</a>
+                <a href="/favoris" >Favoris</a>
             </div>
         </nav>
     </header>
@@ -66,6 +70,6 @@
         <button class="toast-close">✕</button>
     </div>
     
-    <script src="favoris.js"></script>
 </body>
 </html>
+{{end}}

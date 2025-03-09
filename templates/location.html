@@ -27,55 +27,45 @@
     <main>
         <section class="search">
             <h2>Lieux</h2>
-            <form>
-                <input type="text" placeholder="Rechercher un lieu...">
+            <form action="/search" method="GET">
+                <input type="text" name="q" placeholder="Rechercher un lieu...">
                 <button type="submit">Rechercher</button>
             </form>
         </section>
 
-<section class="locations-grid">
-    {{range .Results}}
-    <article class="location-card fade-in">
-        <div class="location-info">
-            <h3>{{.Name}}</h3>
-            <p>Type: {{if .Type}}{{.Type}}{{else}}Non spécifié{{end}}</p>
-            <p>Dimension: {{if .Dimension}}{{.Dimension}}{{else}}Inconnue{{end}}</p>
-            <p>Residents: {{if .Residents}}{{.Residents}}{{else}}Inconnue{{end}}</p>
-            <button class="favorite-btn card-hover" data-id="{{.Id}}">Ajouter aux favoris</button>
-        </div>
-    </article>
-    {{end}}
-</section>
-
         <section class="locations-grid">
-            <article class="location-card">
-                <img src="placeholder.jpg" alt="Citadelle des Ricks">
+            {{range .Results}}
+            <article class="location-card fade-in">
                 <div class="location-info">
-                    <h3>Citadelle des Ricks</h3>
-                    <p>Type: Station spatiale</p>
-                    <p>Dimension: Dimension inconnue</p>
-                    <button class="favorite-btn">Ajouter aux favoris</button>
+                    <h3>{{.Name}}</h3>
+                    <p>Type: {{if .Type}}{{.Type}}{{else}}Non spécifié{{end}}</p>
+                    <p>Dimension: {{if .Dimension}}{{.Dimension}}{{else}}Inconnue{{end}}</p>
+                    <p>Résidents: {{len .Residents}}</p>
+                    <button class="favorite-btn card-hover" data-id="{{.ID}}">Ajouter aux favoris</button>
                 </div>
             </article>
+            {{end}}
         </section>
 
         <nav class="pagination">
             {{if .HasPrev}}
-            <a href="/location?page={{ 1}}" class="pagination-btn">Précédent</a>
+            <a href="/location?page={{.PrevPage}}" class="pagination-btn">Précédent</a>
             {{else}}
             <span class="pagination-btn disabled">Précédent</span>
             {{end}}
             
-            {{range $i := 1}}
-                {{if eq $i $.Page}}
-                <span class="pagination-btn active">{{$i}}</span>
+            {{range .PageNumbers}}
+                {{if eq . -1}}
+                <span class="pagination-btn disabled">...</span>
+                {{else if eq . $.Page}}
+                <span class="pagination-btn active">{{.}}</span>
                 {{else}}
-                <a href="/location?page={{$i}}" class="pagination-btn">{{$i}}</a>
+                <a href="/location?page={{.}}" class="pagination-btn">{{.}}</a>
                 {{end}}
             {{end}}
             
             {{if .HasNext}}
-            <a href="/location?page={{1}}" class="pagination-btn">Suivant</a>
+            <a href="/location?page={{.NextPage}}" class="pagination-btn">Suivant</a>
             {{else}}
             <span class="pagination-btn disabled">Suivant</span>
             {{end}}

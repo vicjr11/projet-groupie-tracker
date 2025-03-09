@@ -22,8 +22,16 @@ func LocationRoutes() {
 }
 
 func FavorisRoutes() {
-	http.HandleFunc("/favoris", controllers.FavorisControllers) // configure la route pour les favoris
-}
+		http.HandleFunc("/favoris", controllers.FavorisControllers) // Configure la route pour les favoris
+		http.HandleFunc("/favoris/add-character", controllers.AddCharacterToFavorites)
+		http.HandleFunc("/favoris/remove-character", controllers.RemoveCharacterFromFavorites)
+		http.HandleFunc("/favoris/add-episode", controllers.AddEpisodeToFavorites)
+		http.HandleFunc("/favoris/remove-episode", controllers.RemoveEpisodeFromFavorites)
+		http.HandleFunc("/favoris/add-location", controllers.AddLocationToFavorites)
+		http.HandleFunc("/favoris/remove-location", controllers.RemoveLocationFromFavorites)
+		http.HandleFunc("/favoris/check", controllers.CheckFavoriteStatus)
+	}
+
 
 func DetailRoutes() {
 //	http.HandleFunc("/details",controllers.CharacterDetailController)  // configure la route pour les favoris

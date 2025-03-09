@@ -8,8 +8,6 @@
     <link rel="stylesheet" href="/assets/css/episodes.css">
     <link rel="stylesheet" href="/assets/css/animation.css">
     <link rel="stylesheet" href="/assets/css/universal.css">
-
-
 </head>
 <body>
     <header>
@@ -29,15 +27,15 @@
         <section class="filters">
             <h2>Épisodes</h2>
             <div class="search-tools">
-                <select name="season">
+                <select name="season" id="season-filter">
                     <option value="">Toutes les saisons</option>
-                    <option value="1">Saison 1</option>
-                    <option value="2">Saison 2</option>
-                    <option value="3">Saison 3</option>
-                    <option value="4">Saison 4</option>
-                    <option value="5">Saison 5</option>
+                    <option value="S01">Saison 1</option>
+                    <option value="S02">Saison 2</option>
+                    <option value="S03">Saison 3</option>
+                    <option value="S04">Saison 4</option>
+                    <option value="S05">Saison 5</option>
                 </select>
-                <input type="text" placeholder="Rechercher un épisode...">
+                <input type="text" id="episode-search" placeholder="Rechercher un épisode...">
             </div>
         </section>
 
@@ -46,54 +44,35 @@
             <article class="episode-card fade-in">
                 <div class="episode-header">
                     <h3>{{.Episode}} - {{.Name}}</h3>
-                    <p>{{.Name}}</p>
-                    <p>air-date: {{.Air_date}}</p>
-                    <p>episode: {{.Episode}}</p>
-                    <p>character: {{.Character}}</p>
-                    <button class="favorite-btn card-hover" data-id="{{.Id}}">★ Favori</button>
+                    <button class="favorite-btn card-hover" data-id="{{.ID}}">★ Favori</button>
                 </div>
                 <p class="air-date">Date de diffusion: {{.Air_date}}</p>
+                <div class="characters">
+                    <h4>Personnages présents: {{len .Characters}}</h4>
+                </div>
             </article>
             {{end}}
         </section>
 
-        <section class="episodes-list">
-            <article class="episode-card">
-                <div class="episode-header">
-                    <h3>S01E01 - Pilot</h3>
-                    <button class="favorite-btn">★ Favori</button>
-                </div>
-                <p class="air-date">Date de diffusion: 2 décembre 2013</p>
-                <p class="description">Rick emmène Morty dans une aventure pour chercher des graines de Mega Trees...</p>
-                <div class="characters">
-                    <h4>Personnages présents:</h4>
-                    <ul>
-                        <li>Rick Sanchez</li>
-                        <li>Morty Smith</li>
-                        <li>Beth Smith</li>
-                    </ul>
-                </div>
-            </article>
-        </section>
-
-
         <nav class="pagination">
             {{if .HasPrev}}
-            <a href="/episode?page={{1}}" class="pagination-btn">Précédent</a>
+            <a href="/episode?page={{.PrevPage}}" class="pagination-btn">Précédent</a>
             {{else}}
             <span class="pagination-btn disabled">Précédent</span>
             {{end}}
             
-            {{range $i := .TotalPage}}
-                {{if eq $i $.Page}}
-                <span class="pagination-btn active">{{$i}}</span>
+            {{range .PageNumbers}}
+                {{if eq . -1}}
+                <span class="pagination-btn disabled">...</span>
+                {{else if eq . $.Page}}
+                <span class="pagination-btn active">{{.}}</span>
                 {{else}}
-                <a href="/episode?page={{$i}}" class="pagination-btn">{{$i}}</a>
+                <a href="/episode?page={{.}}" class="pagination-btn">{{.}}</a>
                 {{end}}
             {{end}}
             
             {{if .HasNext}}
-            <a href="/episode?page={{1}}" class="pagination-btn">Suivant</a>
+            <a href="/episode?page={{.NextPage}}" class="pagination-btn">Suivant</a>
             {{else}}
             <span class="pagination-btn disabled">Suivant</span>
             {{end}}
@@ -103,6 +82,38 @@
     <footer>
         <p>&copy; 2025 Rick & Morty Fan Site. Tous droits réservés.</p>
     </footer>
+
+    <script>
+        // Script pour filtrer les épisodes par saison
+        document.getElementById('season-filter').addEventListener('change', function() {
+            const season = this.value;
+            const cards = document.querySelectorAll('.episode-card');
+            
+            cards.forEach(card => {
+                const episodeCode = card.querySelector('h3').textContent.split(' - ')[0];
+                if (season === '' || episodeCode.includes(season)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+        
+        // Script pour rechercher des épisodes
+        document.getElementById('episode-search').addEventListener('input', function() {
+            const searchText = this.value.toLowerCase();
+            const cards = document.querySelectorAll('.episode-card');
+            
+            cards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                if (title.includes(searchText)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
 {{end}}

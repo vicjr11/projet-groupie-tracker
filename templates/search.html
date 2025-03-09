@@ -1,136 +1,95 @@
+{{define "search"}}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rick and Morty Search Results</title>
-    <link rel="stylesheet" href="/static/css/style.css">
+    <title>Résultats de recherche - Rick & Morty Fan Site</title>
 </head>
 <body>
     <header>
         <nav>
-            <div class="logo">
-                <a href="/"><img src="/static/img/logo.png" alt="Rick and Morty"></a>
-            </div>
-            <ul class="nav-links">
-                <li><a href="/">Home</a></li>
-                <li><a href="/characters">Characters</a></li>
-                <li><a href="/episodes">Episodes</a></li>
-                <li><a href="/locations">Locations</a></li>
+            <h1>Rick & Morty</h1>
+            <ul>
+                <li><a href="/home">Accueil</a></li>
+                <li><a href="/character">Personnages</a></li>
+                <li><a href="/episode">Épisodes</a></li>
+                <li><a href="/location">Lieux</a></li>
+                <li><a href="/favoris">Favoris</a></li>
             </ul>
         </nav>
     </header>
 
-    <div class="search-results">
-        <h1>Search Results for "{{.Query}}"</h1>
-        
-        <form class="search-form" action="/services/search.service.go" method="GET">
-            <input type="text" name="q" class="search-input" placeholder="Search characters, episodes, locations..." value="{{.Query}}">
-            <button type="submit" class="search-button">Search</button>
-        </form>
-        
-        {{if .Results}}
-            {{if .HasCharacters}}
-            <div class="result-section">
-                <h2>Characters</h2>
+    <main>
+        <section class="search">
+            <h2>Recherche</h2>
+            <form action="/search" method="GET">
+                <input type="text" name="q" placeholder="Rechercher..." value="{{.Query}}">
+                <button type="submit">Rechercher</button>
+            </form>
+        </section>
+
+        <section class="search-results">
+            <h3>Résultats ({{.Count}})</h3>
+            
+            {{if eq .Count 0}}
+                <p>Aucun résultat trouvé pour "{{.Query}}"</p>
+            {{else}}
                 <div class="results-grid">
                     {{range .Results}}
                         {{if eq .Type "character"}}
-                            <div class="result-card">
-                                <img src="{{.Data.Image}}" alt="{{.Data.Name}}" class="card-image">
-                                <div class="card-content">
-                                    <div class="card-title">{{.Data.Name}}</div>
-                                    <div class="card-details">
-                                        <p>Species: {{.Data.Species}}</p>
-                                        <p>Status: {{.Data.Status}}</p>
-                                        <p>Gender: {{.Data.Gender}}</p>
-                                        <p>Origin: {{.Data.Origin.Name}}</p>
-                                    </div>
-                                    <div class="match-details">
-                                        {{range .Matching}}
-                                            <span class="match-highlight">{{.}}</span>
+                            <article class="result-card character">
+                                <img src="{{.Data.Image}}" alt="{{.Data.Name}}">
+                                <div class="result-info">
+                                    <h4>{{.Data.Name}}</h4>
+                                    <p>Espèce: {{.Data.Species}}</p>
+                                    <p>Type: {{if .Data.Type}}{{.Data.Type}}{{else}}Non spécifié{{end}}</p>
+                                    <p>Genre: {{.Data.Gender}}</p>
+                                    <p class="match-info">
+                                        Correspond à: 
+                                        {{range $index, $element := .Matching}}
+                                            {{if $index}}, {{end}}{{$element}}
                                         {{end}}
-                                    </div>
-                                    <div class="card-link">
-                                        <a href="/character/{{.Data.ID}}">View Details</a>
-                                    </div>
+                                    </p>
                                 </div>
-                            </div>
+                            </article>
+                        {{else if eq .Type "episode"}}
+                            <article class="result-card episode">
+                                <div class="result-info">
+                                    <h4>{{.Data.Name}}</h4>
+                                    <p>Épisode: {{.Data.Episodes}}</p>
+                                    <p class="match-info">
+                                        Correspond à: 
+                                        {{range $index, $element := .Matching}}
+                                            {{if $index}}, {{end}}{{$element}}
+                                        {{end}}
+                                    </p>
+                                </div>
+                            </article>
+                        {{else if eq .Type "location"}}
+                            <article class="result-card location">
+                                <div class="result-info">
+                                    <h4>{{.Data.Name}}</h4>
+                                    <p>Type: {{.Data.Type}}</p>
+                                    <p>Dimension: {{.Data.Dimension}}</p>
+                                    <p class="match-info">
+                                        Correspond à: 
+                                        {{range $index, $element := .Matching}}
+                                            {{if $index}}, {{end}}{{$element}}
+                                        {{end}}
+                                    </p>
+                                </div>
+                            </article>
                         {{end}}
                     {{end}}
                 </div>
-            </div>
             {{end}}
-            
-            {{if .HasEpisodes}}
-            <div class="result-section">
-                <h2>Episodes</h2>
-                <div class="results-grid">
-                    {{range .Results}}
-                        {{if eq .Type "episode"}}
-                            <div class="result-card">
-                                <div class="card-content">
-                                    <div class="card-title">{{.Data.Name}}</div>
-                                    <div class="card-details">
-                                        <p>Episode: {{.Data.Episodes}}</p>
-                                        <p>Air Date: {{.Data.Air_date}}</p>
-                                        <p>Characters: {{len .Data.Characters}}</p>
-                                    </div>
-                                    <div class="match-details">
-                                        {{range .Matching}}
-                                            <span class="match-highlight">{{.}}</span>
-                                        {{end}}
-                                    </div>
-                                    <div class="card-link">
-                                        <a href="/episode/{{.Data.ID}}">View Details</a>
-                                    </div>
-                                </div>
-                            </div>
-                        {{end}}
-                    {{end}}
-                </div>
-            </div>
-            {{end}}
-            
-            {{if .HasLocations}}
-            <div class="result-section">
-                <h2>Locations</h2>
-                <div class="results-grid">
-                    {{range .Results}}
-                        {{if eq .Type "location"}}
-                            <div class="result-card">
-                                <div class="card-content">
-                                    <div class="card-title">{{.Data.Name}}</div>
-                                    <div class="card-details">
-                                        <p>Type: {{.Data.Type}}</p>
-                                        <p>Dimension: {{.Data.Dimension}}</p>
-                                        <p>Residents: {{len .Data.Residents}}</p>
-                                    </div>
-                                    <div class="match-details">
-                                        {{range .Matching}}
-                                            <span class="match-highlight">{{.}}</span>
-                                        {{end}}
-                                    </div>
-                                    <div class="card-link">
-                                        <a href="/location/{{.Data.ID}}">View Details</a>
-                                    </div>
-                                </div>
-                            </div>
-                        {{end}}
-                    {{end}}
-                </div>
-            </div>
-            {{end}}
-        {{else}}
-            <div class="no-results">
-                <h2>No results found for "{{.Query}}"</h2>
-                <p>Try different keywords or check your spelling.</p>
-            </div>
-        {{end}}
-    </div>
+        </section>
+    </main>
 
     <footer>
-        <p>&copy; 2025 Rick and Morty API Explorer | Data from <a href="https://rickandmortyapi.com" target="_blank">The Rick and Morty API</a></p>
+        <p>&copy; 2025 Rick & Morty Fan Site. Tous droits réservés.</p>
     </footer>
 </body>
 </html>
+{{end}}

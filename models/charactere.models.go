@@ -7,8 +7,14 @@ type ItemCharacter struct {
 	Species  string   `json:"species"`
 	Status   string   `json:"status"`
 	Gender   string   `json:"gender"`
-	Origin   string `json:"origin"`
-	Location string `json:"location"`
+	Origin   struct {
+		Name string `json:"name"`
+		Url  string `json:"url"`
+	} `json:"origin"`
+	Location struct {
+		Name string `json:"name"`
+		Url  string `json:"url"`
+	} `json:"location"`
 	Image    string   `json:"image"`
 	Episode  []string `json:"episode"`
 	URL      string   `json:"url"`
