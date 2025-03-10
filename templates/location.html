@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="/assets/css/location.css">
     <link rel="stylesheet" href="/assets/css/animation.css">
     <link rel="stylesheet" href="/assets/css/universal.css">
+    <script src="/assets/js/favoris.js"></script>
+    <script src="/assets/js/details.js"></script>
 
 </head>
 <body>
@@ -34,14 +36,13 @@
         </section>
 
         <section class="locations-grid">
-            {{range .Results}}
+            {{range.Data.Results}}
             <article class="location-card fade-in">
                 <div class="location-info">
                     <h3>{{.Name}}</h3>
                     <p>Type: {{if .Type}}{{.Type}}{{else}}Non spécifié{{end}}</p>
                     <p>Dimension: {{if .Dimension}}{{.Dimension}}{{else}}Inconnue{{end}}</p>
                     <p>Résidents: {{len .Residents}}</p>
-                    <button class="favorite-btn card-hover" data-id="{{.ID}}">Ajouter aux favoris</button>
                 </div>
             </article>
             {{end}}
@@ -52,18 +53,7 @@
             <a href="/location?page={{.PrevPage}}" class="pagination-btn">Précédent</a>
             {{else}}
             <span class="pagination-btn disabled">Précédent</span>
-            {{end}}
-            
-            {{range .PageNumbers}}
-                {{if eq . -1}}
-                <span class="pagination-btn disabled">...</span>
-                {{else if eq . $.Page}}
-                <span class="pagination-btn active">{{.}}</span>
-                {{else}}
-                <a href="/location?page={{.}}" class="pagination-btn">{{.}}</a>
-                {{end}}
-            {{end}}
-            
+            {{end}} 
             {{if .HasNext}}
             <a href="/location?page={{.NextPage}}" class="pagination-btn">Suivant</a>
             {{else}}
@@ -71,9 +61,37 @@
             {{end}}
         </nav>
     </main>
-
     <footer>
-        <p>&copy; 2025 Rick & Morty Fan Site. Tous droits réservés.</p>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Rick Morty</h3>
+                <p>Discover and download high-quality wallpapers for your desktop and mobile devices.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Categories</h4>
+                <ul>
+                    <li><a href="#">Nature</a></li>
+                    <li><a href="#">Abstract</a></li>
+                    <li><a href="#">Space</a></li>
+                    <li><a href="#">Minimal</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2024 Rick Morty. All rights reserved.</p>
+        </div>
     </footer>
 </body>
 </html>

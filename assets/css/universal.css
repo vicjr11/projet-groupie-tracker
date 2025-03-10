@@ -258,6 +258,78 @@
   opacity: 0.6;
 }
 
+footer {
+  margin-top: 80px;
+  background-color: #6aafeb;
+  padding: 60px 0 20px 0;
+  font-family: "Questrial", serif;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 40px;
+  padding: 0 20px;
+}
+
+.footer-section h3 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #111010;
+}
+
+.footer-section h4 {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #1e1a1a;
+}
+
+.footer-section p {
+  color: #181717;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  max-width: 300px;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+  color: #131010;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+  color: #161515f3;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #333333;
+}
+
+.footer-bottom p {
+  display: flex;
+  justify-content: center;
+  color: #1a1919;
+  font-size: 14px;
+}
+
+
 /* Mobile responsiveness */
 @media (max-width: 768px) {
   .pagination {

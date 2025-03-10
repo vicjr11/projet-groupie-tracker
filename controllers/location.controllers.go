@@ -27,18 +27,24 @@ func LocationControllers(w http.ResponseWriter, r *http.Request) {
 	}
 
 	paginationData := struct {
-		Data      models.ListLocation
-		Page      int
-		HasPrev   bool
-		HasNext   bool
-		TotalPage int
+		Data        models.ListLocation
+		Page        int
+		HasPrev     bool
+		HasNext     bool
+		PrevPage    int
+		NextPage    int
+		TotalPage   int
+		PageNumbers []int // Ajout de cette ligne
 	}{
-		Data:      listLocation,
-		Page:      page,
-		HasPrev:   page > 1,
-		HasNext:   page < listLocation.Info.Pages,
-		TotalPage: listLocation.Info.Pages,
+		Data:        listLocation,
+		Page:        page,
+		HasPrev:     page > 1,
+		HasNext:     page < listLocation.Info.Pages,
+		PrevPage:    page - 1,
+		NextPage:    page + 1,
+		TotalPage:   listLocation.Info.Pages,
 	}
+	
 
 	temp.Temp.ExecuteTemplate(w, "location", paginationData)
 }

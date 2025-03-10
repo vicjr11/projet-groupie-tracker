@@ -31,12 +31,16 @@ func EpisodeControllers(w http.ResponseWriter, r *http.Request) {
 		Page      int
 		HasPrev   bool
 		HasNext   bool
+		PrevPage  int
+		NextPage  int
 		TotalPage int
 	}{
 		Data:      listEpisode,
 		Page:      page,
 		HasPrev:   page > 1,
 		HasNext:   page < listEpisode.Info.Pages,
+		PrevPage:  page - 1,
+		NextPage:  page + 1,
 		TotalPage: listEpisode.Info.Pages,
 	}
 

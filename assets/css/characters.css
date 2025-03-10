@@ -99,3 +99,30 @@ header input {
     margin: 0 20px;
     font-size: 1.2em;
 }
+
+
+
+
+.fav-btn {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+}
+
+.fav-btn.active {
+    background-color: #ff6b6b;
+    color: white;
+    border-color: #ff6b6b;
+}
+
+.fav-btn:hover {
+    background-color: #e0e0e0;
+}
+
+.fav-btn.active:hover {
+    background-color: #ff5252;
+}

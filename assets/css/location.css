@@ -53,3 +53,74 @@
 .favorite-btn:hover {
     background-color: #2980b9;
 }
+
+footer {
+    margin-top: 80px;
+    background-color: #000000;
+    padding: 60px 0 20px 0;
+    font-family: "Questrial", serif;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px;
+    padding: 0 20px;
+  }
+  
+  .footer-section h3 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #ffffff;
+  }
+  
+  .footer-section h4 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #ffffff;
+  }
+  
+  .footer-section p {
+    color: #a0a0a0;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    max-width: 300px;
+  }
+  
+  .footer-section ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .footer-section ul li {
+    margin-bottom: 10px;
+  }
+  
+  .footer-section ul li a {
+    color: #a0a0a0;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .footer-section ul li a:hover {
+    color: #ffffff;
+  }
+  
+  .footer-bottom {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #333333;
+  }
+  
+  .footer-bottom p {
+    display: flex;
+    justify-content: center;
+    color: #a0a0a0;
+    font-size: 14px;
+  }

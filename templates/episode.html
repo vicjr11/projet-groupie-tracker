@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/assets/css/episodes.css">
     <link rel="stylesheet" href="/assets/css/animation.css">
     <link rel="stylesheet" href="/assets/css/universal.css">
+    <script src="/assets/js/favoris.js"></script>
 </head>
 <body>
     <header>
@@ -38,13 +39,11 @@
                 <input type="text" id="episode-search" placeholder="Rechercher un épisode...">
             </div>
         </section>
-
         <section class="episodes-list">
-            {{range .Results}}
+            {{range.Data.Results}}
             <article class="episode-card fade-in">
                 <div class="episode-header">
                     <h3>{{.Episode}} - {{.Name}}</h3>
-                    <button class="favorite-btn card-hover" data-id="{{.ID}}">★ Favori</button>
                 </div>
                 <p class="air-date">Date de diffusion: {{.Air_date}}</p>
                 <div class="characters">
@@ -53,24 +52,12 @@
             </article>
             {{end}}
         </section>
-
-        <nav class="pagination">
+        <nav class="paginationData">
             {{if .HasPrev}}
             <a href="/episode?page={{.PrevPage}}" class="pagination-btn">Précédent</a>
             {{else}}
             <span class="pagination-btn disabled">Précédent</span>
             {{end}}
-            
-            {{range .PageNumbers}}
-                {{if eq . -1}}
-                <span class="pagination-btn disabled">...</span>
-                {{else if eq . $.Page}}
-                <span class="pagination-btn active">{{.}}</span>
-                {{else}}
-                <a href="/episode?page={{.}}" class="pagination-btn">{{.}}</a>
-                {{end}}
-            {{end}}
-            
             {{if .HasNext}}
             <a href="/episode?page={{.NextPage}}" class="pagination-btn">Suivant</a>
             {{else}}
@@ -78,42 +65,38 @@
             {{end}}
         </nav>
     </main>
-
     <footer>
-        <p>&copy; 2025 Rick & Morty Fan Site. Tous droits réservés.</p>
-    </footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Rick Morty</h3>
+                <p>Discover and download high-quality wallpapers for your desktop and mobile devices.</p>
+            </div>
 
-    <script>
-        // Script pour filtrer les épisodes par saison
-        document.getElementById('season-filter').addEventListener('change', function() {
-            const season = this.value;
-            const cards = document.querySelectorAll('.episode-card');
-            
-            cards.forEach(card => {
-                const episodeCode = card.querySelector('h3').textContent.split(' - ')[0];
-                if (season === '' || episodeCode.includes(season)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        });
-        
-        // Script pour rechercher des épisodes
-        document.getElementById('episode-search').addEventListener('input', function() {
-            const searchText = this.value.toLowerCase();
-            const cards = document.querySelectorAll('.episode-card');
-            
-            cards.forEach(card => {
-                const title = card.querySelector('h3').textContent.toLowerCase();
-                if (title.includes(searchText)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        });
-    </script>
+            <div class="footer-section">
+                <h4>Categories</h4>
+                <ul>
+                    <li><a href="#">Nature</a></li>
+                    <li><a href="#">Abstract</a></li>
+                    <li><a href="#">Space</a></li>
+                    <li><a href="#">Minimal</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2024 rick morty . All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>
 {{end}}

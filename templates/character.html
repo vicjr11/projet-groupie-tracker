@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/assets/css/animation.css">
     <link rel="stylesheet" href="/assets/css/universal.css">
     <script src="/assets/js/character.js" defer></script>
+    <script src="/assets/js/details.js" defer></script>
 </head>
 <body>
     <header>
@@ -34,7 +35,7 @@
         </section>
 
         <section class="characters-grid">
-            {{range .Results}}
+            {{range.Data.Results}}
             <article class="character-card fade-in">
                 <img src="{{.Image}}" alt="{{.Name}}">
                 <div class="character-info">
@@ -42,39 +43,67 @@
                     <p>Espèce: {{.Species}}</p>
                     <p>Statut: {{.Status}}</p>
                     <p>Genre: {{.Gender}}</p>
-                    <button class="favorite-btn card-hover" data-id="{{.ID}}">Ajouter aux favoris</button>
                 </div>
             </article>
             {{end}}
         </section>
-        
-        <nav class="pagination">
+        <nav class="paginationData">
             {{if .HasPrev}}
             <a href="/character?page={{.PrevPage}}" class="pagination-btn">Précédent</a>
             {{else}}
             <span class="pagination-btn disabled">Précédent</span>
             {{end}}
-            
-            {{range .PageNumbers}}
-                {{if eq . -1}}
-                <span class="pagination-btn disabled">...</span>
-                {{else if eq . $.Page}}
-                <span class="pagination-btn active">{{.}}</span>
-                {{else}}
-                <a href="/character?page={{.}}" class="pagination-btn">{{.}}</a>
-                {{end}}
-            {{end}}
-            
             {{if .HasNext}}
             <a href="/character?page={{.NextPage}}" class="pagination-btn">Suivant</a>
             {{else}}
             <span class="pagination-btn disabled">Suivant</span>
             {{end}}
         </nav>
+        <article class="character-card fade-in">
+            <img src="{{.Image}}" alt="{{.Name}}">
+            <div class="character-info">
+                <h3>{{.Name}}</h3>
+                <p>Espèce: {{.Species}}</p>
+                <p>Statut: {{.Status}}</p>
+                <p>Genre: {{.Gender}}</p>
+                <button class="fav-btn" data-id="{{.ID}}" data-name="{{.Name}}" data-image="{{.Image}}">
+                    ❤️ Favoris
+                </button>
+            </div>
+        </article>
     </main>
 
     <footer>
-        <p>&copy; 2025 Rick & Morty Fan Site. Tous droits réservés.</p>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>ricky Morty</h3>
+                <p>Discover and download high-quality wallpapers for your desktop and mobile devices.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Categories</h4>
+                <ul>
+                    <li><a href="#">Nature</a></li>
+                    <li><a href="#">Abstract</a></li>
+                    <li><a href="#">Space</a></li>
+                    <li><a href="#">Minimal</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2024 Papery. All rights reserved.</p>
+        </div>
     </footer>
 </body>
 </html>
