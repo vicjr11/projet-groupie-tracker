@@ -103,3 +103,8 @@ Le projet est organisé comme suit:
 ## Tests
 
 Exécutez les tests avec `go test ./...`
+
+## lancer le serveur 
+
+on lance le serveur dans le terminal en écrivant go run main.go
+
